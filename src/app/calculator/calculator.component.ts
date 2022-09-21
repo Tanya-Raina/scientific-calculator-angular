@@ -13,6 +13,15 @@ export class CalculatorComponent implements OnInit {
 
   isExecutable: boolean = false;
 
+  parameterList: string[] = [
+    'Time',
+    'Speed',
+    'Product Count',
+    'Defective Products',
+    'Count-In',
+    'Count-Out'
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -35,7 +44,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   getOperation(op: string): void {
-    this.currentValue += op;
+    this.currentValue += ` ${op} `;
   }
 
 

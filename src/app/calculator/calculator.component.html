@@ -1,59 +1,84 @@
-<div class="calculator">
+<div class="calculator container-fluid">
 
   <input type="text" class="calculator-screen" [value]="currentValue" disabled />
 
-  <div class="calculator-keys">
+  <div class="calculator-keys container">
 
-    <button type="button" (click)="getOperation('ln')" class="operator" value="ln">ln</button>
-    <button type="button" (click)="getOperation('pow')" class="operator" value="pow">x<sup>y</sup></button>
-    <button type="button" (click)="getOperation('exp')" class="operator" value="exp">exp</button>
-    <button type="button" (click)="getOperation('/')" class="operator" value="/">/</button>
-    <button type="button" (click)="getNumber('7')" value="7">7</button>
-    <button type="button" (click)="getNumber('8')" value="8">8</button>
-    <button type="button" (click)="getNumber('9')" value="9">9</button>
-    <button type="button" (click)="allClear()" class="all-clear" value="all-clear">AC</button>
-
-
-    <button type="button" (click)="getOperation('√')" class="operator" value="√">√</button>
-    <button type="button" (click)="getOperation('%')" class="operator" value="%">%</button>
-    <button type="button" (click)="getNumber('e')" value="e">e</button>
-    <button type="button" (click)="getOperation('*')" class="operator" value="*">*</button>
-    <button type="button" (click)="getNumber('4')" value="4">4</button>
-    <button type="button" (click)="getNumber('5')" value="5">5</button>
-    <button type="button" (click)="getNumber('6')" value="6">6</button>
-    <button type="button" (click)="clearOne()" class="all-clear" value="clear">C</button>
+    <div class="row">
+      <button type="button" (click)="getOperation('ln')" class="operator col" value="ln">ln</button>
+      <button type="button" (click)="getOperation('pow')" class="operator col" value="pow">x<sup>y</sup></button>
+      <button type="button" (click)="getOperation('exp')" class="operator col" value="exp">exp</button>
+      <button type="button" (click)="getOperation('/')" class="operator col" value="/">/</button>
+      <button type="button" (click)="getNumber('7')" class="col" value="7">7</button>
+      <button type="button" (click)="getNumber('8')" class="col" value="8">8</button>
+      <button type="button" (click)="getNumber('9')" class="col" value="9">9</button>
+      <button type="button" (click)="allClear()" class="all-clear col" value="all-clear">AC</button>
+    </div>
 
 
-    <button type="button" (click)="getOperation('sin')" class="operator" value="sin">sin</button>
-    <button type="button" (click)="getOperation('cos')" class="operator" value="cos">cos</button>
-    <button type="button" (click)="getOperation('tan')" class="operator" value="tan">tan</button>
-    <button type="button" (click)="getOperation('+')" class="operator" value="+">+</button>
-    <button type="button" (click)="getNumber('1')" value="1">1</button>
-    <button type="button" (click)="getNumber('2')" value="2">2</button>
-    <button type="button" (click)="getNumber('3')" value="3">3</button>
-    <button type="button" (click)="getOperation('=')" class="operator" value="=">=</button>
+    <div class="row">
+      <button type="button" (click)="getOperation('√')" class="operator col" value="√">√</button>
+      <button type="button" (click)="getOperation('%')" class="operator col" value="%">%</button>
+      <button type="button" (click)="getNumber('e')" class="col" value="e">e</button>
+      <button type="button" (click)="getOperation('*')" class="operator col" value="*">*</button>
+      <button type="button" (click)="getNumber('4')" class="col" value="4">4</button>
+      <button type="button" (click)="getNumber('5')" class="col" value="5">5</button>
+      <button type="button" (click)="getNumber('6')" class="col" value="6">6</button>
+      <button type="button" (click)="clearOne()" class="all-clear col" value="clear">C</button>
+    </div>
 
 
-    <button type="button" (click)="getOperation('asin')" class="operator" value="asin">sin<sup>-1</sup></button>
-    <button type="button" (click)="getOperation('acos')" class="operator" value="acos">cos<sup>-1</sup></button>
-    <button type="button" (click)="getOperation('atan')" class="operator" value="atan">tan<sup>-1</sup></button>
-    <button type="button" (click)="getOperation('-')" class="operator" value="-">-</button>
-    <button type="button" (click)="getNumber('π')" value="π">π</button>
-    <button type="button" (click)="getNumber('0')" value="0">0</button>
-    <button type="button" (click)="getDecimal()" class="decimal" value=".">.</button>
-    <button type="button" (click)="getOperation(',')" class="decimal" value=",">,</button>
+    <div class="row">
+      <button type="button" (click)="getOperation('sin')" class="operator col" value="sin">sin</button>
+      <button type="button" (click)="getOperation('cos')" class="operator col" value="cos">cos</button>
+      <button type="button" (click)="getOperation('tan')" class="operator col" value="tan">tan</button>
+      <button type="button" (click)="getOperation('+')" class="operator col" value="+">+</button>
+      <button type="button" (click)="getNumber('1')" class="col" value="1">1</button>
+      <button type="button" (click)="getNumber('2')" class="col" value="2">2</button>
+      <button type="button" (click)="getNumber('3')" class="col" value="3">3</button>
+      <button type="button" (click)="getOperation('=')" class="operator col" value="=">=</button>
+    </div>
 
 
-    <button type="button" (click)="getOperation('SumOf(')" class="operator" value="SumOf(">SumOf</button>
-    <button type="button" (click)="getOperation('AvgOf(')" class="operator" value="AvgOf(">AvgOf</button>
-    <button type="button" (click)="getOperation('(')" class="operator" value="(">(</button>
-    <button type="button" (click)="getOperation(')')" class="operator" value=")">)</button>
+    <div class="row">
+      <button type="button" (click)="getOperation('asin')" class="operator col" value="asin">sin<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('acos')" class="operator col" value="acos">cos<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('atan')" class="operator col" value="atan">tan<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('-')" class="operator col" value="-">-</button>
+      <button type="button" (click)="getNumber('π')" class="col" value="π">π</button>
+      <button type="button" (click)="getNumber('0')" class="col" value="0">0</button>
+      <button type="button" (click)="getDecimal()" class="decimal col" value=".">.</button>
+      <button type="button" (click)="getOperation(',')" class="decimal col" value=",">,</button>
+    </div>
 
 
-    <button type="button" (click)="getNumber('A')" value="A">A</button>
-    <button type="button" (click)="getNumber('B')" value="B">B</button>
-    <button type="button" (click)="getNumber('C')" value="C">C</button>
-    <button type="button" (click)="getNumber('D')" value="D">D</button>
+    <div class="row">
+      <button type="button" (click)="getOperation('SumOf(')" class="operator col" value="SumOf(">SumOf</button>
+      <button type="button" (click)="getOperation('AvgOf(')" class="operator col" value="AvgOf(">AvgOf</button>
+      <button type="button" (click)="getOperation('(')" class="operator col" value="(">(</button>
+      <button type="button" (click)="getOperation(')')" class="operator col" value=")">)</button>
+
+
+      <button type="button" (click)="getNumber('A')" class="col" value="A">A</button>
+      <button type="button" (click)="getNumber('B')" class="col" value="B">B</button>
+      <button type="button" (click)="getNumber('C')" class="col" value="C">C</button>
+      <button type="button" (click)="getNumber('D')" class="col" value="D">D</button>
+    </div>
+
+
+    <div class="row" >
+<!--      <div >-->
+        <button *ngFor="let parameter of parameterList"   type="button" (click)="getNumber(parameter)" class="col" value="{{parameter}}">{{parameter}}</button>
+<!--      </div>-->
+
+<!--      <button type="button" (click)="getNumber('Time')" class="col" value="A">Time</button>-->
+<!--      <button type="button" (click)="getNumber('Speed')" class="col" value="C">Speed</button>-->
+<!--      <button type="button" (click)="getNumber('Product Count')" class="col" value="B">Product Count</button>-->
+<!--      <button type="button" (click)="getNumber('Defective Products')" class="col" value="D">Defective Products</button>-->
+<!--      <button type="button" (click)="getNumber('CountIn')" class="col" value="D">CountIn</button>-->
+<!--      <button type="button" (click)="getNumber('CountOut')" class="col" value="D">CountOut</button>-->
+    </div>
+
 
   </div>
 
