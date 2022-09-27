@@ -15,6 +15,8 @@ export class CalculatorComponent implements OnInit {
 
   currentValue: string  = '';
 
+  isDecimalUsed: boolean = false;
+
   isExecutable: boolean = false;
 
   parameterList: string[] = [
@@ -31,32 +33,106 @@ export class CalculatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNumber(v: string): void {
-    if (v === 'π') {
-      this.currentValue += String(angularMath.getPi().toFixed(3));
-    } else if (v === 'e') {
-      this.currentValue += String(angularMath.getE().toFixed(3));
+  // Previous Character Checking Function
+  previousChar() {
+    return this.currentValue[this.currentValue.length - 1];
+  }
+
+  getNumber(num: string): void {
+    if(this.currentValue.length == 0) {
+      this.currentValue += num;
+      return ;
+    }
+    const regex = new RegExp(/[A-Za-z\)\]]/);
+    if(!regex.test(this.previousChar())) {
+      if (num === 'π') {
+        this.currentValue += String(angularMath.getPi().toFixed(3));
+      } else if (num === 'e') {
+        this.currentValue += String(angularMath.getE().toFixed(3));
+      } else {
+        this.currentValue += num;
+      }
     } else {
-      this.currentValue += v;
+      // this.notifyService.showWarning("Missing Operator (+,-,*,/)");
+      alert("Missing Operator (+,-,*,/)");
     }
   }
 
   getDecimal(): void {
-    if (!this.currentValue.includes('.')) {
+    const regex = new RegExp(/[0-9]/);
+    if(this.currentValue.length == 0 || !regex.test(this.previousChar())) {
+      // this.notifyService.showWarning("Add a number[0-9] before using decimal!");
+      alert("Add a number[0-9] before using decimal!");
+      return;
+    }
+    if(!this.isDecimalUsed) {
+      this.isDecimalUsed = true;
       this.currentValue += '.';
+    } else {
+      // this.notifyService.showError("Invalid Expression!");
+      alert("Invalid Expression!");
     }
   }
 
-  getOperation(op: string): void {
-    this.currentValue += `${op} `;
+  getOperator(op: string): void {
+    if(this.currentValue.length == 0) {
+      // this.notifyService.showWarning("Add variables and functions to perform operation");
+      alert("Add variables and functions to perform operation");
+      return;
+    }
+    const regex = new RegExp(/[,\+\-\*\/%]/);
+    if(!regex.test(this.previousChar())) {
+      this.currentValue += op;
+      this.isDecimalUsed = false;
+    } else {
+      this.currentValue = this.currentValue.slice(0, this.currentValue.length-1);
+      this.currentValue += op;
+    }
   }
 
   getParameter(param: string): void {
-    this.currentValue += `${param} `;
+    if(this.currentValue.length === 0){
+      this.currentValue += param;
+      return;
+    }
+    const regex = new RegExp(/[A-Za-z0-9\]\)]/);
+    if(!regex.test(this.previousChar())){
+      this.currentValue += param;
+    }
+    else{
+      // this.notifyService.showWarning("Missing arithmetic operator or parenthesis!");
+      alert("Missing arithmetic operator or parenthesis!");
+    }
+  }
+
+  getParenthesis(sym: string): void {
+    if(sym === '(' || sym === '[' || sym === '{') {
+      if(this.currentValue.length === 0) {
+        this.currentValue += sym;
+        return;
+      }
+      const regex = new RegExp(/[A-Za-z0-9\)\]]/);
+      if(regex.test(this.previousChar())) {
+        // this.notifyService.showWarning("Missing arithmetic operator");
+        alert("Missing arithmetic operator");
+        return;
+      }
+    }
+    this.currentValue += sym;
   }
 
   getFunction(func: string): void {
-    this.currentValue += `${func} `;
+    if (this.currentValue.length === 0) {
+      this.currentValue += func;
+      return;
+    }
+    const regex = new RegExp(/[A-Za-z0-9\)\]]/);
+    if (!regex.test (this.previousChar()) ) {
+      this.currentValue += func;
+    } else {
+      // this.notifyService.showWarning("Missing arithmetic operator!");
+      alert("Missing arithmetic operator!");
+    }
   }
 
   allClear(): void {
@@ -82,12 +158,14 @@ export class CalculatorComponent implements OnInit {
       const node2 = math.parse(currentValue);
       console.log(node2);
       if(node2.isNode) {
-        console.log('It is executable.');
+        alert('Formula is executable.');
 
         this.isExecutable = true;
       }
     } catch (e) {
-      console.log('It is NOT executable.');
+      this.isExecutable = false;
+      this.reset();
+      alert('Formula is not executable.');
     }
   }
 
