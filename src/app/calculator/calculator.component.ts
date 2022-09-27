@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { angularMath } from 'angular-ts-math/dist/angular-ts-math/angular-ts-math';
 import * as math from "mathjs";
 
@@ -9,6 +9,10 @@ import * as math from "mathjs";
 })
 export class CalculatorComponent implements OnInit {
 
+  @Output() formulaNameExpr = new EventEmitter<string[]>();
+
+  formulaName: string = '';
+
   currentValue: string  = '';
 
   isExecutable: boolean = false;
@@ -16,10 +20,10 @@ export class CalculatorComponent implements OnInit {
   parameterList: string[] = [
     'Time',
     'Speed',
-    'Product Count',
-    'Defective Products',
-    'Count-In',
-    'Count-Out'
+    'Product_Count',
+    'Defective_Products',
+    'Count_In',
+    'Count_Out'
   ];
 
   constructor() { }
@@ -29,11 +33,11 @@ export class CalculatorComponent implements OnInit {
 
   getNumber(v: string): void {
     if (v === 'π') {
-      this.currentValue += String(angularMath.getPi());
+      this.currentValue += String(angularMath.getPi().toFixed(3));
     } else if (v === 'e') {
-      this.currentValue += String(angularMath.getE());
+      this.currentValue += String(angularMath.getE().toFixed(3));
     } else {
-      this.currentValue === '0' ? this.currentValue = v : this.currentValue += v;
+      this.currentValue += v;
     }
   }
 
@@ -44,9 +48,16 @@ export class CalculatorComponent implements OnInit {
   }
 
   getOperation(op: string): void {
-    this.currentValue += ` ${op} `;
+    this.currentValue += `${op} `;
   }
 
+  getParameter(param: string): void {
+    this.currentValue += `${param} `;
+  }
+
+  getFunction(func: string): void {
+    this.currentValue += `${func} `;
+  }
 
   allClear(): void {
     this.currentValue = '';
@@ -63,12 +74,13 @@ export class CalculatorComponent implements OnInit {
     console.log(currentValue);
 
     if (currentValue === '') {
-      console.log('Error: Empty Expression');
+      alert('Error: Empty Expression');
       return;
     }
 
     try {
       const node2 = math.parse(currentValue);
+      console.log(node2);
       if(node2.isNode) {
         console.log('It is executable.');
 
@@ -80,6 +92,26 @@ export class CalculatorComponent implements OnInit {
   }
 
   saveExpression() {
-    alert(`Saved: ${this.currentValue}`);
+    if(this.formulaName === '') {
+      alert('Error: Empty Name');
+      return;
+    }
+    console.log(`${this.formulaName}: ${this.currentValue}`);
+
+    this.formulaNameExpr.emit([this.formulaName, this.currentValue]);
+
+    this.reset();
   }
+
+
+  getFormulaName(event: any) {
+    this.formulaName = event.target.value;
+  }
+
+  reset() {
+    this.currentValue = '';
+    this.isExecutable = false;
+    this.formulaName = '';
+  }
+
 }

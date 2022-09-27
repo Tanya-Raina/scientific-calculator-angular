@@ -9,9 +9,13 @@
   //width: 800px;
 }
 
+.formula-name {
+  margin: 10px 0;
+}
+
 .calculator-screen {
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.2rem;
   height: 80px;
   border: none;
   background-color: dodgerblue;
@@ -26,7 +30,7 @@ button {
   background-color: #fff;
   border-radius: 3px;
   border: 1px solid #c4c4c4;
-  font-size: 1.7rem;
+  font-size: 1rem;
   color: #333;
   //margin: 10px;
 }
@@ -69,10 +73,4 @@ button:hover {
   border-color: #ccc;
   color: dimgrey;
   cursor: not-allowed;
-}
-
-@media (min-width: 768px) {
-  .calculator {
-    width: 750px;
-  }
 }

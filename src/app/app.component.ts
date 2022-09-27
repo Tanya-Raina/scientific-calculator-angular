@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'scientific-calculator-angular';
+  formulaName: string = '';
+  formulaExpr: string = '';
+
+  displayFormulaNameExpr(formulaNameExpr: string[]) {
+    this.formulaName = formulaNameExpr[0];
+    this.formulaExpr = formulaNameExpr[1];
+  }
 }

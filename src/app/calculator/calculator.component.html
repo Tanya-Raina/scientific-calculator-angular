@@ -1,11 +1,13 @@
 <div class="calculator container-fluid">
 
+  <input type="text" class="form-control formula-name" (keyup)="getFormulaName($event)" [value]="formulaName" placeholder="Enter name of formula" required />
+
   <input type="text" class="calculator-screen" [value]="currentValue" disabled />
 
   <div class="calculator-keys container">
 
     <div class="row">
-      <button type="button" (click)="getOperation('ln')" class="operator col" value="ln">ln</button>
+      <button type="button" (click)="getOperation('ln(')" class="operator col" value="ln(">ln</button>
       <button type="button" (click)="getOperation('pow')" class="operator col" value="pow">x<sup>y</sup></button>
       <button type="button" (click)="getOperation('exp')" class="operator col" value="exp">exp</button>
       <button type="button" (click)="getOperation('/')" class="operator col" value="/">/</button>
@@ -17,7 +19,7 @@
 
 
     <div class="row">
-      <button type="button" (click)="getOperation('√')" class="operator col" value="√">√</button>
+      <button type="button" (click)="getOperation('√(')" class="operator col" value="√(">√</button>
       <button type="button" (click)="getOperation('%')" class="operator col" value="%">%</button>
       <button type="button" (click)="getNumber('e')" class="col" value="e">e</button>
       <button type="button" (click)="getOperation('*')" class="operator col" value="*">*</button>
@@ -29,9 +31,9 @@
 
 
     <div class="row">
-      <button type="button" (click)="getOperation('sin')" class="operator col" value="sin">sin</button>
-      <button type="button" (click)="getOperation('cos')" class="operator col" value="cos">cos</button>
-      <button type="button" (click)="getOperation('tan')" class="operator col" value="tan">tan</button>
+      <button type="button" (click)="getOperation('sin(')" class="operator col" value="sin(">sin</button>
+      <button type="button" (click)="getOperation('cos(')" class="operator col" value="cos(">cos</button>
+      <button type="button" (click)="getOperation('tan(')" class="operator col" value="tan(">tan</button>
       <button type="button" (click)="getOperation('+')" class="operator col" value="+">+</button>
       <button type="button" (click)="getNumber('1')" class="col" value="1">1</button>
       <button type="button" (click)="getNumber('2')" class="col" value="2">2</button>
@@ -41,9 +43,9 @@
 
 
     <div class="row">
-      <button type="button" (click)="getOperation('asin')" class="operator col" value="asin">sin<sup>-1</sup></button>
-      <button type="button" (click)="getOperation('acos')" class="operator col" value="acos">cos<sup>-1</sup></button>
-      <button type="button" (click)="getOperation('atan')" class="operator col" value="atan">tan<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('asin(')" class="operator col" value="asin(">sin<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('acos(')" class="operator col" value="acos(">cos<sup>-1</sup></button>
+      <button type="button" (click)="getOperation('atan(')" class="operator col" value="atan(">tan<sup>-1</sup></button>
       <button type="button" (click)="getOperation('-')" class="operator col" value="-">-</button>
       <button type="button" (click)="getNumber('π')" class="col" value="π">π</button>
       <button type="button" (click)="getNumber('0')" class="col" value="0">0</button>
@@ -53,30 +55,21 @@
 
 
     <div class="row">
-      <button type="button" (click)="getOperation('SumOf(')" class="operator col" value="SumOf(">SumOf</button>
-      <button type="button" (click)="getOperation('AvgOf(')" class="operator col" value="AvgOf(">AvgOf</button>
+      <button type="button" (click)="getOperation('SumOf(')" class="operator col" value="SumOf(">SumOf()</button>
+      <button type="button" (click)="getOperation('AvgOf(')" class="operator col" value="AvgOf(">AvgOf()</button>
       <button type="button" (click)="getOperation('(')" class="operator col" value="(">(</button>
       <button type="button" (click)="getOperation(')')" class="operator col" value=")">)</button>
 
 
-      <button type="button" (click)="getNumber('A')" class="col" value="A">A</button>
-      <button type="button" (click)="getNumber('B')" class="col" value="B">B</button>
-      <button type="button" (click)="getNumber('C')" class="col" value="C">C</button>
-      <button type="button" (click)="getNumber('D')" class="col" value="D">D</button>
+      <button type="button" (click)="getOperation('[')" class="operator col" value="[">[</button>
+      <button type="button" (click)="getOperation(']')" class="operator col" value="]">]</button>
+      <button type="button" (click)="getOperation('{')" class="operator col" value="{">{{ "{" }}</button>
+      <button type="button" (click)="getOperation('}')" class="operator col" value="}">}</button>
     </div>
 
 
     <div class="row" >
-<!--      <div >-->
-        <button *ngFor="let parameter of parameterList"   type="button" (click)="getNumber(parameter)" class="col" value="{{parameter}}">{{parameter}}</button>
-<!--      </div>-->
-
-<!--      <button type="button" (click)="getNumber('Time')" class="col" value="A">Time</button>-->
-<!--      <button type="button" (click)="getNumber('Speed')" class="col" value="C">Speed</button>-->
-<!--      <button type="button" (click)="getNumber('Product Count')" class="col" value="B">Product Count</button>-->
-<!--      <button type="button" (click)="getNumber('Defective Products')" class="col" value="D">Defective Products</button>-->
-<!--      <button type="button" (click)="getNumber('CountIn')" class="col" value="D">CountIn</button>-->
-<!--      <button type="button" (click)="getNumber('CountOut')" class="col" value="D">CountOut</button>-->
+        <button *ngFor="let parameter of parameterList"   type="button" (click)="getParameter(parameter)" class="col" value="{{parameter}}">{{parameter}}</button>
     </div>
 
 
@@ -86,8 +79,10 @@
     <button type="button"
             class="save-btn"
             [disabled]="!isExecutable"
-            (click)="saveExpression()">
-    Save</button>
+            (click)="saveExpression()"
+            data-bs-dismiss="modal"
+    >Save</button>
+
     <button type="button" class="action" (click)="parseExpression(this.currentValue)">Parse</button>
   </div>
 </div>
